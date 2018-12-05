@@ -93,3 +93,17 @@ export const UserList = {
         },
     ]
 }
+
+export const UserData =  {
+    "CustomerId": "25a9a30d-eab7-46d8-8d99-0003069659f3",
+    "FirstName": "Demo",
+    "LastName": "User",
+    "Email": "demo.user@dummy.com",
+    "Phone": "(123) 99990 99999",
+    "DateOfBirth": "1983-08-01T00:00:00",
+    "PostCode": "11111",
+    "BeautyLoopLevel": 1,
+    "SpendToMaintain": 0,
+    "SpendAwayFromNextTier": 247,
+    "LastPurchaseDate": "2018-04-04T00:00:00"
+};

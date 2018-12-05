@@ -20,7 +20,7 @@ class Discovery extends React.Component {
                 this.setState({loader: false},()=>{
                     this.props.navigation.navigate('SearchResult');
                 })
-            },1500)
+            },1000)
         });
     }
 
@@ -35,7 +35,7 @@ class Discovery extends React.Component {
 
                 <SearchBar searchHandler={this.searchHandler}/>
 
-                <TouchableOpacity style={styles.QRwrapper} >
+                {/* <TouchableOpacity style={styles.QRwrapper} >
                     <React.Fragment>
                         <Ionicons 
                             name={'ios-qr-scanner'} 
@@ -43,7 +43,7 @@ class Discovery extends React.Component {
                             color={'#fff'} />
                         <Text style={styles.QRtext}>SCAN PRODUCTS IN STORE</Text>
                     </React.Fragment>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
 
             <View style={styles.body}>
