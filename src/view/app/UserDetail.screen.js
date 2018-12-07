@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 //custom component.
 import {containerStyles} from '../../common/styles';
 import {UserList, UserData} from '../../common/dummyData';
+import ProgressCircle from '../../components/ProgressCircle';
 
 const {height, width} = Dimensions.get('window');
 
@@ -47,7 +48,7 @@ class UserDetail extends React.Component {
         let {data} = this.state;
         let {navigation} = this.props;
         return  (
-            <SafeAreaView style={containerStyles.container}>
+            <SafeAreaView style={[containerStyles.container,{backgroundColor: '#f42995'}]}>
                 <ScrollView bounces={false} style={[containerStyles.container,{backgroundColor: '#fff'}]}>
                     {
                         data && Object.keys(data).length > 0 ?
@@ -63,18 +64,13 @@ class UserDetail extends React.Component {
                                             color={'#fff'} />
                                     </TouchableOpacity>
                                 </View>
-                                <View style={styles.profileHeader}>
-                                    <Text style={styles.profileText}>
-                                        {this.getNameInitials(data.FirstName, data.LastName)}
-                                    </Text>
-                                </View>
+                                <ProgressCircle level={data.BeautyLoopLevel}/>
                                 <Text style={styles.nameText}>{`${data.FirstName} ${data.LastName}`}</Text>
                             </View>
                             <View style={styles.body}>
                                 {this.renderDetailRow(data.Email.toLowerCase(), 'ios-mail')}
                                 {this.renderDetailRow(data.Phone, 'ios-call')}
                                 {this.renderDetailRow(data.PostCode, 'ios-home')}
-                                {this.renderDetailRow(data.BeautyLoopLevel, 'ios-happy', 'Beauty Loop Level')}
                             </View>
                         </View>
                         : null
@@ -92,7 +88,7 @@ const styles = StyleSheet.create({
     },
     head: {
         paddingHorizontal: 15, 
-        backgroundColor: '#f57163',
+        backgroundColor: '#f42995',
         alignItems: 'center',
     },
     body:{
@@ -129,8 +125,8 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: '#fff',
         fontWeight: "600",
-        marginBottom: 10,
         marginBottom: 20,
+        marginTop: 10,
     },
     subText: {
         fontSize: 18,

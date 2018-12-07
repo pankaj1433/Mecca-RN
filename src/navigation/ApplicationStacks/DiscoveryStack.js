@@ -9,7 +9,7 @@ import {
 } from '../../view/app';
 
 export default DiscoveryStack = createStackNavigator({
-    Discovery: Discovery,
-    SearchResult: SearchResult,
+    // Discovery: Discovery,
+    // SearchResult: SearchResult,
     UserDetail: UserDetail
 },tabStackConfig());
