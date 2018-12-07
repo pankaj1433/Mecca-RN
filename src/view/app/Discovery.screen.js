@@ -30,7 +30,7 @@ class Discovery extends React.Component {
         <SafeAreaView style={containerStyles.container}>
             <Loader loader={loader}/>
             <View style={styles.header}>
-                <Text style={styles.headerText1}>Search for 100+ beauty brands</Text>
+                <Text style={styles.headerText1}>Search for customers</Text>
                 <Text style={styles.headerText2}>- Get Searching</Text>
 
                 <SearchBar searchHandler={this.searchHandler}/>
