@@ -15,7 +15,7 @@ class ProgressCircle extends React.Component {
                 if(i < changePoint) {
                     color="#fff"
                 }
-                return <Line    strokeWidth="3"
+                return <Line    key={i} strokeWidth="3"
                                 rotation={(i)*6} 
                                 stroke={color} 
                                 y1={-width/5+15} x1={0} 

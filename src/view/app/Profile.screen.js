@@ -14,7 +14,6 @@ class Profile extends React.Component {
   }
 }
 
-
 const styles = StyleSheet.create({
   
 });

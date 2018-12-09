@@ -1,24 +1,52 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
+import { connect } from 'react-redux';
 
 //custom component.
 import {containerStyles} from '../../common/styles';
-import {UserList} from '../../common/dummyData';
+import Loader from '../../components/Loader';
+
+//import actions.
+import {getUserList} from '../../actions/users.action';
 
 class SearchResult extends React.Component {
 
+    state = {
+        pageSize: 30,
+        startIndex: 0
+    }
+
+    componentDidMount () {
+        this.fetchAPI();
+    }
+    
+    fetchAPI = () => {
+        let {pageSize, startIndex} = this.state;
+        const searchTerm = this.props.navigation.getParam('searchTerm', '');
+        let {getUserList} = this.props;
+
+        getUserList(searchTerm, pageSize, startIndex);
+    }
+
     openDetail = id => {
         this.props.navigation.navigate('UserDetail', {id: id} );
+    }
+
+    loadMoreData = () => {
+        let {pageSize, startIndex} = this.state;
+        this.setState({startIndex: pageSize+startIndex},()=>{
+            this.fetchAPI();
+        });
     }
 
     _renderItem = ({item}) => {
         return (
             <View style={styles.itemCard}>
                 <View>
-                    <Text style={styles.name}>{`${item.FirstName} ${item.LastName}`}</Text>
-                    <Text style={[styles.subText,{marginBottom: 5}]}>{`${item.Email}`}</Text>
-                    <Text style={styles.subText}>{`${item.Phone}`}</Text>
+                    <Text style={styles.name}>{`${item.FirstName || ''} ${item.LastName || ''}`}</Text>
+                    <Text style={[styles.subText,{marginBottom: 5}]}>{`${item.Email || ''}`}</Text>
+                    <Text style={styles.subText}>{`${item.ContactNumber|| ''}`}</Text>
                 </View>
                 <TouchableOpacity onPress={()=>this.openDetail(item.CustomerId)} style={styles.button}>
                     <Text style={styles.buttonText}>VIEW DETAIL</Text>
@@ -27,16 +55,20 @@ class SearchResult extends React.Component {
         );
     }
     
-    _keyExtractor = (item) => item.CustomerId;
+    _keyExtractor = (item,i) => item.CustomerId;
 
     render() {
+        let {userList, loader} = this.props;
         return (
             <SafeAreaView style={[containerStyles.greyContainer,styles.container]}>
+                <Loader loader={loader}/>
                 <Text style={styles.title}>List of users</Text>
                 <FlatList
-                    data={UserList.Results}
+                    data={userList}
                     renderItem={this._renderItem}
                     keyExtractor={this._keyExtractor}
+                    onEndReached={this.loadMoreData}
+                    onEndReachedThreshold={0}
                 />
             </SafeAreaView>
         );
@@ -80,4 +112,14 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SearchResult;
+
+const mapStateToProps = (state) => ({
+    userList: state.users.userList,
+    loader: state.users.loader,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    getUserList: (searchTerm, pageSize, startIndex) => dispatch(getUserList(searchTerm, pageSize, startIndex)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResult);

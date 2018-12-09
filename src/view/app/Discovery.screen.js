@@ -10,25 +10,14 @@ import Loader from '../../components/Loader';
 
 class Discovery extends React.Component {
 
-    state = {
-        loader: false,
-    }
-
     searchHandler = (searchText) => {
-        this.setState({loader: true},()=>{
-            setTimeout(()=>{
-                this.setState({loader: false},()=>{
-                    this.props.navigation.navigate('SearchResult');
-                })
-            },1000)
-        });
+        this.props.navigation.navigate('SearchResult', {searchTerm: searchText} );
     }
 
     render() {
-        let {loader} = this.state;
         return  (
         <SafeAreaView style={containerStyles.container}>
-            <Loader loader={loader}/>
+            {/* <Loader loader={loader}/> */}
             <View style={styles.header}>
                 <Text style={styles.headerText1}>Search for customers</Text>
                 <Text style={styles.headerText2}>- Get Searching</Text>
