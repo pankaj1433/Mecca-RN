@@ -1,13 +1,38 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, } from 'react-native';
 import { Svg, Circle, G, Line } from 'react-native-svg';
 
 const {width} = Dimensions.get('window');
 class ProgressCircle extends React.Component {
 
-    getDashes = () => {
+
+    constructor() {
+        super();
+        this.state = {
+            changePoint: 0
+        };
+    }
+
+    componentDidMount() {
+       this.animate();
+    }
+
+    animate = () => {
         let {level} = this.props;
-        let changePoint = (60*level)/3
+        let changePointToValue = (60*level)/3;
+        if(changePointToValue !== this.state.changePoint) {
+            let interval = setInterval(() => {
+                if(changePointToValue === this.state.changePoint) {
+                    clearInterval(interval);
+                }
+                this.setState({changePoint: this.state.changePoint+1})
+            }, 20);
+        }
+    }
+    
+    getDashes = () => {
+        let {changePoint} = this.state;
+
         const arr = Array.apply(null, {length: 60}).map(Number.call, Number)
         return(
             arr.map((i)=>{
@@ -15,11 +40,13 @@ class ProgressCircle extends React.Component {
                 if(i < changePoint) {
                     color="#fff"
                 }
-                return <Line    key={i} strokeWidth="3"
-                                rotation={(i)*6} 
-                                stroke={color} 
-                                y1={-width/5+15} x1={0} 
-                                y2={-width/5} x2={0} />
+                return (
+                    <Line    key={i} strokeWidth="3"
+                            rotation={(i)*6} 
+                            stroke={color} 
+                            y1={-width/5+15} x1={0} 
+                            y2={-width/5} x2={0} />
+                )
             })
         );
     }
