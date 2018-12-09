@@ -55,7 +55,7 @@ class SearchResult extends React.Component {
         );
     }
     
-    _keyExtractor = (item,i) => item.CustomerId;
+    _keyExtractor = (item, index) => `${index}`;
 
     render() {
         let {userList, loader} = this.props;

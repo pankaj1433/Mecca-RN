@@ -119,7 +119,7 @@ export const USERDETAILAPIDATA = {
     "Phone": "",
     "DateOfBirth": null,
     "PostCode": "2046",
-    "BeautyLoopLevel": 0,
+    "BeautyLoopLevel": 1,
     "SpendToMaintain": 0,
     "SpendAwayFromNextTier": 259,
     "LastPurchaseDate": "2017-07-19T00:00:00"
