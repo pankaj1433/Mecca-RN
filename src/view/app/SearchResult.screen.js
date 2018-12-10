@@ -8,7 +8,7 @@ import {containerStyles} from '../../common/styles';
 import Loader from '../../components/Loader';
 
 //import actions.
-import {getUserList} from '../../actions/users.action';
+import {getUserList, resetUser} from '../../actions/users.action';
 
 class SearchResult extends React.Component {
 
@@ -19,6 +19,10 @@ class SearchResult extends React.Component {
 
     componentDidMount () {
         this.fetchAPI();
+    }
+
+    componentWillMount() {
+        this.props.resetUser();
     }
     
     fetchAPI = () => {
@@ -120,6 +124,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getUserList: (searchTerm, pageSize, startIndex) => dispatch(getUserList(searchTerm, pageSize, startIndex)),
+    resetUser: () => dispatch(resetUser()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResult);

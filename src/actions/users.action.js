@@ -38,3 +38,5 @@ export const getUser = (userID) => dispatch => {
 }
 
 export const unsetUser = () => dispatch => dispatch({ type: 'UNSET_USER'});
+
+export const resetUser = () => dispatch => dispatch({ type: 'RESET_LIST' });

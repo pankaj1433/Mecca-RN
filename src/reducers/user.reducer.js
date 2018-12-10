@@ -8,6 +8,9 @@ export const users = (state = configInitialState, action) => {
     switch(action.type) {
         case 'ADD_LIST':
             return { ...state, userList:[...state.userList, ...action.data] };
+        
+        case 'RESET_LIST':
+            return { ...state, userList:[], selectedUser: {} };
 
         case 'SHOW_LOADER': 
             return {...state, loader: true};
